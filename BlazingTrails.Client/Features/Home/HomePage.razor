@@ -2,7 +2,6 @@
 @inject HttpClient Http
 
 <PageTitle>Trails</PageTitle>
-<h3>HomePage</h3>
 
 @if (_trails == null)
 {
@@ -11,6 +10,8 @@
 else
 {
     <TrailDetails Trail="_selectedTrail" />
+
+    <TrailSearch />
 
     <div class="grid">
         @foreach (var trail in _trails)
