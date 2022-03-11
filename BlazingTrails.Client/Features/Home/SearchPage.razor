@@ -15,7 +15,7 @@
     </ol>
 </nav>
 <h3 class="mt-5 mb-4">Search results for "@SearchTerm"</h3>
-<SearchFilter SearchTerm="@SearchTerm" />
+<SearchFilter SearchTerm="@SearchTerm" MaxLength="MaxLength" MaxTime="MaxTime" />
 
 @if (_searchResults == null)
 {
@@ -41,8 +41,11 @@ else
     [Parameter]
     public string SearchTerm { get; set; }
 
-    [Parameter]
+    [Parameter, SupplyParameterFromQuery]
     public int? MaxLength { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public int? MaxTime { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -64,15 +67,31 @@ else
 
     protected override void OnParametersSet()
     {
-        if (_cachedSearchResults.Any() && MaxLength.HasValue)
+        UpdateFilters();
+    }
+
+    private void UpdateFilters()
+    {
+        var filters = new List<Func<Trail, bool>>();
+
+        if (MaxLength is not null && MaxLength > 0)
         {
-            _searchResults = _cachedSearchResults.Where(x => x.Length <= MaxLength.Value);
+            filters.Add(x => x.Length <= MaxLength);
         }
-        else if (_cachedSearchResults.Any() && MaxLength is null)
+
+        if (MaxTime is not null && MaxTime > 0)
+        {
+            filters.Add(x => x.TimeInMinutes <= MaxTime * 60); 
+        }
+
+        if (filters.Any())
+        {
+            _searchResults = _cachedSearchResults.Where(trail => filters.All(filter => filter(trail)));
+        }
+        else
         {
             _searchResults = _cachedSearchResults;
         }
     }
-
 }
 
