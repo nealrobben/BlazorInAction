@@ -1,15 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-	  <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<NpmLastInstall>node_modules/.last-install</NpmLastInstall>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
-    <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
+		<PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+		<PackageReference Include="Blazored.FluentValidation" Version="2.0.1" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Watch Include="**/*.scss" />
@@ -17,13 +18,13 @@
 		<None Update="**/*.css" Watch="false" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\images\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BlazingTrails.Shared\BlazingTrails.Shared.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BlazingTrails.Shared\BlazingTrails.Shared.csproj" />
+	</ItemGroup>
 
 	<Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
 		<Exec Command="npm --version" ContinueOnError="true">

@@ -13,16 +13,20 @@
 
 <EditForm Model="_trail" OnValidSubmit="SubmitForm">
 
+    <FluentValidationValidator />
+
     <FormSection Title="Basic Details" HelpText="This information is used to identify the trail and can be searched to help hikers find it.">
 
         <FormFieldSet Width="col-6">
             <label for="trailName" class="font-weight-bold text-secondary">Name</label>
             <InputText @bind-Value="_trail.Name" class="form-control" id="trailName" />
+            <ValidationMessage For="@(() => _trail.Name)" />
         </FormFieldSet>
 
         <FormFieldSet>
             <label for="trailDescription" class="font-weight-bold text-secondary">Description</label>
             <InputTextArea @bind-Value="_trail.Description" rows="6" class="form-control" id="trailDescription" />
+            <ValidationMessage For="@(() => _trail.Description)" />
         </FormFieldSet>
 
         <div class="row">
@@ -37,6 +41,7 @@
         <FormFieldSet Width="col-6">
             <label for="trailLocation" class="font-weight-bold text-secondary">Location</label>
             <InputText @bind-Value="_trail.Location" class="form-control" id="trailLocation" />
+            <ValidationMessage For="@(() => _trail.Location)" />
         </FormFieldSet>
 
     </FormSection>
@@ -45,6 +50,7 @@
         <FormFieldSet Width="col-3">
             <label for="trailLength" class="font-weight-bold text-secondary">Length (km)</label>
             <InputNumber @bind-Value="_trail.Length" class="form-control" id="trailLength" />
+            <ValidationMessage For="@(() => _trail.Length)" />
         </FormFieldSet>
     </FormSection>
 
@@ -66,6 +72,7 @@
                     <div class="form-group">
                         <label for="routeInstructionDescription" class="font-weight-bold text-secondary">Description</label>
                         <InputText @bind-Value="routeInstruction.Description" class="form-control" id="routeInstructionDescription" />
+                        <ValidationMessage For="@(() => routeInstruction.Description)" />
                     </div>
                 </div>
                 <div class="col-1 d-flex mt-3">
@@ -81,6 +88,7 @@
         <div class="row">
             <div class="col">
                 <button class="btn btn-outline-primary" type="button" @onclick="@(() => _trail.Route.Add(new TrailDto.RouteInstruction()))">Add Instruction</button>
+                <ValidationMessage For="@(() => _trail.Route)" />
             </div>
         </div>
 
