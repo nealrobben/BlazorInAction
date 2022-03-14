@@ -49,15 +49,6 @@ else if (_errorMessage is not null)
             <ValidationMessage For="@(() => _trail.Description)" />
         </FormFieldSet>
 
-        <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="trailLocation" class="font-weight-bold text-secondary">Location</label>
-                    <InputText @bind-Value="_trail.Location" class="form-control" id="trailLocation" />
-                </div>
-            </div>
-        </div>
-
         <FormFieldSet Width="col-6">
             <label for="trailLocation" class="font-weight-bold text-secondary">Location</label>
             <InputText @bind-Value="_trail.Location" class="form-control" id="trailLocation" />
@@ -67,11 +58,19 @@ else if (_errorMessage is not null)
     </FormSection>
 
     <FormSection Title="Difficulty" HelpText="Help other hikers out by telling them the length of the trail is how long it might take them.">
+        
         <FormFieldSet Width="col-3">
             <label for="trailLength" class="font-weight-bold text-secondary">Length (km)</label>
             <InputNumber @bind-Value="_trail.Length" class="form-control" id="trailLength" />
             <ValidationMessage For="@(() => _trail.Length)" />
         </FormFieldSet>
+
+        <FormFieldSet Width="col-5">
+            <label for="trailTime" class="font-weight-bold text-secondary">Time</label>
+            <InputTime @bind-Value="_trail.TimeInMinutes" id="trailTime" />
+            <ValidationMessage For="@(() => _trail.TimeInMinutes)" />
+        </FormFieldSet>
+
     </FormSection>
 
     <FormSection Title="Route Instructions" HelpText="Route instructions are a guide for the trail. This helps hikers new to the trail stay on track.">
