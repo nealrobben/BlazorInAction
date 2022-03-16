@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace BlazingTrails.Shared.Features.ManageTrails
+namespace BlazingTrails.Shared.Features.ManageTrails.Shared
 {
     public class TrailDto
     {
@@ -11,6 +11,9 @@ namespace BlazingTrails.Shared.Features.ManageTrails
         public int TimeInMinutes { get; set; }
         public int Length { get; set; }
         public List<RouteInstruction> Route { get; set; } = new List<RouteInstruction>();
+
+        public string? Image { get; set; }
+        public ImageAction ImageAction { get; set; }
 
         public class RouteInstruction
         {
@@ -41,5 +44,12 @@ namespace BlazingTrails.Shared.Features.ManageTrails
             RuleFor(x => x.Stage).NotEmpty().WithMessage("Please enter a stage");
             RuleFor(x => x.Description).NotEmpty().WithMessage("Please enter a description");
         }
+    }
+
+    public enum ImageAction
+    {
+        None,
+        Add,
+        Remove
     }
 }
