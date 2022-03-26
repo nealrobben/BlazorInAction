@@ -4,7 +4,7 @@ using BlazingTrails.Api.Persistence.Entities;
 using BlazingTrails.Shared.Features.ManageTrails.AddTrail;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlazingTrails.Api.Features.ManageTrails
+namespace BlazingTrails.Api.Features.ManageTrails.AddTrail
 {
     public class AddTrailEndpoint : BaseAsyncEndpoint.WithRequest<AddTrailRequest>.WithResponse<int>
     {
