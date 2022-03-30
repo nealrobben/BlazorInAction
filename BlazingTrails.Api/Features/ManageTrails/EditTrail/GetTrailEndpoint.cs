@@ -15,6 +15,7 @@ namespace BlazingTrails.Api.Features.ManageTrails.EditTrail
             _context = context;
         }
 
+        [HttpGet(GetTrailRequest.RouteTemplate)]
         public async override Task<ActionResult<GetTrailRequest.Response>> HandleAsync(int trailId, CancellationToken cancellationToken = default)
         {
             var trail = await _context.Trails.Include(x => x.Route).SingleOrDefaultAsync(x => x.Id == trailId,cancellationToken: cancellationToken);
