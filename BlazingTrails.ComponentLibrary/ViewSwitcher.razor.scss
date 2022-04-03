@@ -11,17 +11,17 @@ table {
     color: #212529;
     border-collapse: collapse;
     
-    :: deep th, ::deep td {
+    deep th, ::deep td {
         padding: .75rem;
         vertical-align: middle;
     }
 
-    ::deep thead tr th {
+    thead tr th {
         border-bottom: 4px solid var(--brand);
         border-top: none;
     }
 
-    ::deep tbody tr:nth-of-type(odd) {
+    tbody tr:nth-of-type(odd) {
         background-color: rgba(0,0,0,.05);
     }
 }
