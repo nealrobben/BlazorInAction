@@ -15,6 +15,7 @@
 
     private ElementReference _map;
     private IJSObjectReference? _routeMapModule;
+    private DotNetObjectReference<RouteMap> _routeMapReference;
 
     [Parameter] 
     public string Height { get; set; } = "500px";
@@ -27,7 +28,8 @@
         if (firstRender)
         {
             _routeMapModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BlazingTrails.ComponentLibrary/Map/RouteMap.razor.js");
-            await _routeMapModule.InvokeVoidAsync("initialize", _map); 
+            _routeMapReference = DotNetObjectReference.Create(this);
+            await _routeMapModule.InvokeVoidAsync("initialize", _map, _routeMapReference); 
         }
     }
 
@@ -37,7 +39,15 @@
         {
             await _routeMapModule.DisposeAsync();
         }
+
+        if(_routeMapReference is not null)
+        {
+            _routeMapReference?.Dispose();   
+        }
     }
+
+    [JSInvokable]
+    public void WaypointAdded(decimal latitude, decimal longitude) => Console.WriteLine($"Added Waypoint - Latitude: {latitude}, Longitude {longitude}");
 
     public async Task DeleteLastWaypoint()
     {
