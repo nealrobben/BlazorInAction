@@ -18,7 +18,8 @@ namespace BlazingTrails.Api.Features.ManageTrails.EditTrail
         [HttpGet(GetTrailRequest.RouteTemplate)]
         public async override Task<ActionResult<GetTrailRequest.Response>> HandleAsync(int trailId, CancellationToken cancellationToken = default)
         {
-            var trail = await _context.Trails.Include(x => x.Waypoints).SingleOrDefaultAsync(x => x.Id == trailId,cancellationToken: cancellationToken);
+            var trail = await _context.Trails.Include(x => x.Waypoints)
+                                    .SingleOrDefaultAsync(x => x.Id == trailId,cancellationToken: cancellationToken);
 
             if (trail is null)
             {
@@ -32,8 +33,9 @@ namespace BlazingTrails.Api.Features.ManageTrails.EditTrail
                 trail.Image,
                 trail.TimeInMinutes,
                 trail.Length,
-                trail.Description,null));
-            
+                trail.Description,
+                trail.Waypoints.Select(wp => new GetTrailRequest.Waypoint(wp.Latitude, wp.Longitude))));
+
             return Ok(response);
         }
     }

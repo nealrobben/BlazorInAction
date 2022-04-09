@@ -25,11 +25,15 @@ namespace BlazingTrails.Api.Features.ManageTrails.AddTrail
                 Description = request.Trail.Description,
                 Location = request.Trail.Location,
                 TimeInMinutes = request.Trail.TimeInMinutes,
-                Length = request.Trail.Length
+                Length = request.Trail.Length,
+                Waypoints = request.Trail.Waypoints.Select(wp => new Waypoint
+                {
+                    Latitude = wp.Latitude,
+                    Longitude = wp.Longitude
+                }).ToList()
             };
 
             await _database.Trails.AddAsync(trail, cancellationToken);
-
             await _database.SaveChangesAsync(cancellationToken);
 
             return Ok(trail.Id);
