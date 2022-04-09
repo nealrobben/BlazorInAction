@@ -30,14 +30,6 @@ namespace BlazingTrails.Api.Features.ManageTrails.AddTrail
 
             await _database.Trails.AddAsync(trail, cancellationToken);
 
-            var routeInstructions = request.Trail.Route.Select(x => new RouteInstruction
-            {
-                Stage = x.Stage,
-                Description = x.Description,
-                Trail = trail
-            });
-
-            await _database.RouteInstructions.AddRangeAsync(routeInstructions, cancellationToken);
             await _database.SaveChangesAsync(cancellationToken);
 
             return Ok(trail.Id);

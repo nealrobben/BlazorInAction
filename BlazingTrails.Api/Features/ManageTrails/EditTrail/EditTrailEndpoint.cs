@@ -20,7 +20,7 @@ namespace BlazingTrails.Api.Features.ManageTrails.EditTrail
         [HttpPut(EditTrailRequest.RouteTemplate)]
         public override async Task<ActionResult<bool>> HandleAsync(EditTrailRequest request, CancellationToken cancellationToken = default)
         {
-            var trail = await _database.Trails.Include(x => x.Route).SingleOrDefaultAsync(x => x.Id == request.Trail.Id,cancellationToken: cancellationToken);
+            var trail = await _database.Trails.Include(x => x.Waypoints).SingleOrDefaultAsync(x => x.Id == request.Trail.Id,cancellationToken: cancellationToken);
 
             if (trail is null)
             {
@@ -32,12 +32,6 @@ namespace BlazingTrails.Api.Features.ManageTrails.EditTrail
             trail.Location = request.Trail.Location;
             trail.TimeInMinutes = request.Trail.TimeInMinutes;
             trail.Length = request.Trail.Length;
-            trail.Route = request.Trail.Route.Select(ri => new RouteInstruction
-            {
-                Stage = ri.Stage,
-                Description = ri.Description,
-                Trail = trail
-            }).ToList();
 
             if (request.Trail.ImageAction == ImageAction.Remove)
             {

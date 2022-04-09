@@ -55,11 +55,6 @@ else
             _trail.Image = response.Trail.Image;
             _trail.Length = response.Trail.Length;
             _trail.TimeInMinutes = response.Trail.TimeInMinutes;
-            _trail.Route.AddRange(response.Trail.RouteInstructions.Select(ri => new TrailDto.RouteInstruction
-            {
-                Stage = ri.Stage,
-                Description = ri.Description
-            }));
         }
         else
         {
@@ -85,12 +80,6 @@ else
             _trail.Location = trail.Location;
             _trail.Length = trail.Length;
             _trail.TimeInMinutes = trail.TimeInMinutes;
-            _trail.Route.Clear();
-            _trail.Route.AddRange(trail.Route.Select(_ => new TrailDto.RouteInstruction
-            {
-                Stage = _.Stage,
-                Description = _.Description
-            }));
 
             _submitSuccessful = true;
 
