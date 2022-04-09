@@ -1,4 +1,4 @@
-export function initialize(hostElement, routeMapComponent, existingWaypoints) {
+export function initialize(hostElement, routeMapComponent, existingWaypoints, isReadOnly) {
 
     hostElement.map = L.map(hostElement).setView([51.700, -0.10], 3);
 
@@ -6,7 +6,7 @@ export function initialize(hostElement, routeMapComponent, existingWaypoints) {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 18,
         opacity: .75
-        }).addTo(hostElement.map);
+    }).addTo(hostElement.map);
 
     hostElement.waypoints = [];
     hostElement.lines = [];
@@ -26,16 +26,17 @@ export function initialize(hostElement, routeMapComponent, existingWaypoints) {
         hostElement.map.fitBounds(waypointsGroup.getBounds().pad(1));
     }
 
-    hostElement.map.on('click', function (e) {
-        let waypoint = L.marker(e.latlng);
-        waypoint.addTo(hostElement.map);
-        hostElement.waypoints.push(waypoint);
-        let line = L.polyline(hostElement.waypoints.map(m => m.getLatLng()),
-        { color: 'var(--brand)' }).addTo(hostElement.map);
-        hostElement.lines.push(line);
+    if (!isReadOnly) {
+        hostElement.map.on('click', function (e) {
+            let waypoint = L.marker(e.latlng);
+            waypoint.addTo(hostElement.map);
+            hostElement.waypoints.push(waypoint);
+            let line = L.polyline(hostElement.waypoints.map(m => m.getLatLng()), { color: 'var(--brand)' }).addTo(hostElement.map);
+            hostElement.lines.push(line);
 
-        routeMapComponent.invokeMethodAsync('WaypointAdded', e.latlng.lat, e.latlng.lng);
-    });
+            routeMapComponent.invokeMethodAsync('WaypointAdded', e.latlng.lat, e.latlng.lng);
+        });
+    }
 }
 
 export function deleteLastWaypoint(hostElement) {

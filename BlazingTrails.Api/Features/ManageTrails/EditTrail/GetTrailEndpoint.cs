@@ -34,7 +34,7 @@ namespace BlazingTrails.Api.Features.ManageTrails.EditTrail
                 trail.TimeInMinutes,
                 trail.Length,
                 trail.Description,
-                trail.Waypoints.Select(wp => new GetTrailRequest.Waypoint(wp.Latitude, wp.Longitude))));
+                trail.Waypoints.Select(wp => new GetTrailRequest.Waypoint(wp.Latitude, wp.Longitude)).ToList()));
 
             return Ok(response);
         }

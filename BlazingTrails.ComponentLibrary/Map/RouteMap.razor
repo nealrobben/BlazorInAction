@@ -3,11 +3,14 @@
 @implements IAsyncDisposable
 
 <div class="map-wrapper">
-    <div class="controls">
-        <button @onclick="DeleteLastWaypoint" class="btn btn-secondary" title="Delete last waypoint" type="button">
-            <i class="bi bi-trash"></i> Remove Last Waypoint
-        </button>
-    </div>
+    @if (!IsReadOnly)
+    {
+        <div class="controls">
+            <button @onclick="DeleteLastWaypoint" class="btn btn-secondary" title="Delete last waypoint" type="button">
+                <i class="bi bi-trash"></i> Remove Last Waypoint
+            </button>
+        </div>
+    }
     <div style="height: @(Height); width:@(Width);" @ref="_map"></div>
 </div>
 
@@ -16,7 +19,10 @@
     private ElementReference _map;
     private IJSObjectReference? _routeMapModule;
     private DotNetObjectReference<RouteMap> _routeMapReference;
-    
+
+    [Parameter]
+    public bool IsReadOnly { get; set; }
+
     [Parameter]
     public List<LatLong> Waypoints { get; set; } = new List<LatLong>();
 
@@ -26,10 +32,10 @@
     [Parameter]
     public EventCallback<LatLong> OnWaypointDeleted { get; set; }
 
-    [Parameter] 
+    [Parameter]
     public string Height { get; set; } = "500px";
 
-    [Parameter] 
+    [Parameter]
     public string Width { get; set; } = "1000px";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -38,7 +44,7 @@
         {
             _routeMapModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BlazingTrails.ComponentLibrary/Map/RouteMap.razor.js");
             _routeMapReference = DotNetObjectReference.Create(this);
-            await _routeMapModule.InvokeVoidAsync("initialize", _map, _routeMapReference, Waypoints); 
+            await _routeMapModule.InvokeVoidAsync("initialize", _map, _routeMapReference, Waypoints, IsReadOnly);
         }
     }
 
@@ -49,9 +55,9 @@
             await _routeMapModule.DisposeAsync();
         }
 
-        if(_routeMapReference is not null)
+        if (_routeMapReference is not null)
         {
-            _routeMapReference?.Dispose();   
+            _routeMapReference?.Dispose();
         }
     }
 
