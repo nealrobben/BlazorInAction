@@ -3,7 +3,7 @@
 @implements IAsyncDisposable
 
 <div class="map-wrapper">
-    @if (!IsReadOnly)
+    @if (!IsReadOnly && Waypoints.Any())
     {
         <div class="controls">
             <button @onclick="DeleteLastWaypoint" class="btn btn-secondary" title="Delete last waypoint" type="button">
