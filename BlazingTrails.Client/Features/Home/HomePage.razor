@@ -37,11 +37,16 @@ else
                     <td>@(trail.Length)km</td>
                     <td>@trail.TimeFormatted</td>
                     <td class="text-right">
+                        <AuthorizeView> 
+                            @if(trail.Owner.Equals(context.User.Identity?.Name,StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                <button @onclick="@(() => NavManager.NavigateTo($"/edit-trail/{trail.Id}"))" title="Edit" class="btn btn-outline-secondary">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            }
+                        </AuthorizeView>
                         <button @onclick="@(() => HandleTrailSelected(trail))" title="View" class="btn btn-primary">
                             <i class="bi bi-binoculars"></i>
-                        </button>
-                        <button @onclick="@(() => NavManager.NavigateTo($"/edit-trail/{trail.Id}"))" title="Edit" class="btn btn-outline-secondary">
-                            <i class="bi bi-pencil"></i>
                         </button>
                     </td>
                 </RowTemplate>
@@ -79,6 +84,7 @@ else
                     Location = x.Location,
                     Length = x.Length,
                     TimeInMinutes = x.TimeInMinutes,
+                    Owner = x.Owner,
                     Waypoints = x.Waypoints.Select(wp => new BlazingTrails.ComponentLibrary.Map.LatLong(wp.Latitude, wp.Longitude))?.ToList() ?? new List<ComponentLibrary.Map.LatLong>()
                 });
         }
