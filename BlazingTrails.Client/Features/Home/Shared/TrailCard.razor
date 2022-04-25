@@ -21,7 +21,12 @@
         <button class="btn btn-primary" title="View" @onclick="@(async () => await OnSelected.InvokeAsync(Trail))">
             <i class="bi bi-binoculars"></i>
         </button>
-        <button class="btn btn-outline-secondary float-right" title="Edit" @onclick="@(() => NavManager.NavigateTo($"/edit-trail/{Trail.Id}"))">Update</button>
+        <AuthorizeView>
+            @if (Trail.Owner.Equals(context.User.Identity?.Name, StringComparison.CurrentCultureIgnoreCase))
+            {
+                <button class="btn btn-outline-secondary float-right" title="Edit" @onclick="@(() => NavManager.NavigateTo($"/edit-trail/{Trail.Id}"))">Update</button>
+            }
+        </AuthorizeView>
     </div>
 </div>
 
