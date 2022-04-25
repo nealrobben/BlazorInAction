@@ -28,7 +28,8 @@ namespace BlazingTrails.Api.Features.ManageTrails.Shared
                 return BadRequest("Trail does not exist.");
             }
 
-            if (!trail.Owner.Equals(HttpContext.User.Identity!.Name, StringComparison.CurrentCultureIgnoreCase))
+            if (!trail.Owner.Equals(HttpContext.User.Identity!.Name, StringComparison.CurrentCultureIgnoreCase) 
+                && !HttpContext.User.IsInRole("Administrator"))
                 return Unauthorized();
 
             var file = Request.Form.Files[0];
