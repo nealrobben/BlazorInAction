@@ -30,7 +30,7 @@ namespace BlazingTrails.Client.Features.ManageTrails.Shared
 
             if (trail.Id == 0)
             {
-                AppState.SaveTrail(trail);
+                AppState.NewTrailState.SaveTrail(trail);
             }
         }
     }
