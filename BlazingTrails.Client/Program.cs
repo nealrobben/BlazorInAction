@@ -1,4 +1,5 @@
 using BlazingTrails.Client.Features.Auth;
+using BlazingTrails.Client.State;
 using MediatR;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -25,6 +26,8 @@ namespace BlazingTrails.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddMediatR(typeof(Program).Assembly);
+
+            builder.Services.AddScoped<AppState>();
 
             builder.Services.AddOidcAuthentication(options => 
             {
