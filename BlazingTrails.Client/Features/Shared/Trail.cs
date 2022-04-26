@@ -1,7 +1,7 @@
 ﻿using BlazingTrails.ComponentLibrary.Map;
 using System.Collections.Generic;
 
-namespace BlazingTrails.Client.Features.Home.Shared
+namespace BlazingTrails.Client.Features.Shared
 {
     public class Trail
     {
@@ -16,6 +16,7 @@ namespace BlazingTrails.Client.Features.Home.Shared
         public string Owner { get; set; } = "";
         public List<LatLong> Waypoints { get; set; } = new List<LatLong>();
     }
+
     public class RouteInstruction
     {
         public int Stage { get; set; }
