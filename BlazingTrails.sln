@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingTrails.Shared", "Bla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingTrails.ComponentLibrary", "BlazingTrails.ComponentLibrary\BlazingTrails.ComponentLibrary.csproj", "{604141FB-B0E8-443F-B66F-FE4D52FBA5F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingTrails.Tests", "BlazingTrails.Tests\BlazingTrails.Tests.csproj", "{0785CB1A-F54D-4654-81F4-53DA8437A1A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingTrails.Tests", "BlazingTrails.Tests\BlazingTrails.Tests.csproj", "{0785CB1A-F54D-4654-81F4-53DA8437A1A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
